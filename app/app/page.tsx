@@ -11,6 +11,7 @@ import { pdf } from "@react-pdf/renderer";
 import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { TemplateSelector } from "@/components/cv/template-selector";
 
 export default function CVBuilder() {
   const { personalInfo, sections } = useStore();
@@ -64,13 +65,17 @@ export default function CVBuilder() {
           <div>
             <h1 className="text-3xl font-bold">Créer votre CV</h1>
             <p className="mt-1 text-muted-foreground">
-              Remplissez les informations ci-dessous pour créer votre CV professionnel
+              Remplissez les informations ci-dessous pour créer votre CV
+              professionnel
             </p>
           </div>
-          <Button onClick={handleExport} className="gap-2">
-            <Download className="h-4 w-4" />
-            Exporter en PDF
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button onClick={handleExport} className="gap-2">
+              <Download className="h-4 w-4" />
+              Exporter en PDF
+            </Button>
+            <TemplateSelector />
+          </div>
         </div>
 
         <Card>
@@ -82,7 +87,9 @@ export default function CVBuilder() {
           <CardContent>
             <div className="flex items-center gap-4">
               <Progress value={progress} className="h-2" />
-              <div className="min-w-[3rem] text-sm font-medium">{progress}%</div>
+              <div className="min-w-[3rem] text-sm font-medium">
+                {progress}%
+              </div>
             </div>
           </CardContent>
         </Card>
