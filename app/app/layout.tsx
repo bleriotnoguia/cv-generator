@@ -3,6 +3,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { CVPreview } from "@/components/cv/preview/cv-preview";
 import Footer from "@/components/footer";
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -13,9 +14,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="h-full overflow-auto border-t lg:border-t-0 lg:border-l bg-white">
           <CVPreview />
         </div>
-        <Toaster />
       </div>
       <Footer />
+      <Toaster />
     </>
   );
 }
