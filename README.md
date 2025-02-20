@@ -81,3 +81,34 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 ## ⭐️ Support
 
 Si vous aimez ce projet, n'hésitez pas à lui donner une étoile sur GitHub !
+
+## 📋 Todo
+
+- [ ] Ajouter plus de modèles de CV
+  - [ ] Modèle Minimaliste
+  - [ ] Modèle Académique
+  - [ ] Modèle Créatif avec Timeline
+  - [x] Modèle Professionnel
+  - [ ] Modèle Développeur
+  - [ ] Modèle Designer
+  - [ ] Modèle Marketing
+  - [ ] Modèle Graphisme
+  - [ ] Modèle ...
+- [ ] Fonctionnalités d'importation
+
+  - [ ] Import depuis LinkedIn
+  - [ ] Import depuis un fichier JSON
+  - [ ] Import depuis un CV existant (PDF/Word)
+
+- [ ] Authentification et sauvegarde
+
+  - [ ] Connexion avec Google/GitHub
+  - [ ] Sauvegarde des CV dans le cloud
+  - [ ] Partage de CV via lien
+
+- [ ] Améliorations futures
+  - [ ] Mode sombre
+  - [ ] Internationalisation (i18n)
+  - [ ] Suggestions IA pour améliorer le contenu
+  - [ ] Version imprimable optimisée
+  - [ ] Statistiques de visualisation des CV
