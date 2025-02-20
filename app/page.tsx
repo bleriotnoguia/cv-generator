@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText, Star, Users } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { TemplateGallery } from "@/components/template-gallery";
 
 export default function Home() {
   return (
@@ -79,39 +79,7 @@ export default function Home() {
       </section>
 
       {/* Templates Gallery */}
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Nos modèles de CV
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Choisissez parmi notre sélection de modèles professionnels
-            </p>
-          </div>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6].map((template) => (
-              <div
-                key={template}
-                className="group relative overflow-hidden rounded-lg bg-card shadow-md transition-all hover:shadow-xl"
-              >
-                <Image
-                  src={`https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=400`}
-                  alt={`Template ${template}`}
-                  width={400}
-                  height={566}
-                  className="aspect-[3/4] object-cover"
-                />
-                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-6 opacity-0 transition-opacity group-hover:opacity-100">
-                  <Button variant="secondary" className="w-full">
-                    Utiliser ce modèle
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TemplateGallery />
 
       {/* Footer */}
       <footer className="border-t">

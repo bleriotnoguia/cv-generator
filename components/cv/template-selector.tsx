@@ -26,14 +26,14 @@ const TEMPLATES = [
     name: "Classic",
     description: "Un style traditionnel et élégant",
     preview:
-      "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+      "https://images.unsplash.com/photo-1696952384801-079962407b0d?q=80&w=400",
   },
   {
     id: "creative",
     name: "Creative",
     description: "Un design moderne et créatif",
     preview:
-      "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+      "https://images.unsplash.com/photo-1444427169197-de497742b62d?q=80&w=400",
   },
   {
     id: "professional",
@@ -41,6 +41,13 @@ const TEMPLATES = [
     description: "Un design professionnel avec barre latérale",
     preview:
       "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+  },
+  {
+    id: "creative",
+    name: "Creative",
+    description: "Un design moderne et créatif",
+    preview:
+      "https://images.unsplash.com/photo-1724304406928-c43b01912fa1?q=80&w=400",
   },
 ];
 
@@ -99,7 +106,7 @@ export function TemplateSelector() {
       </DialogTrigger>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
-          <DialogTitle className="flex items-center justify-between">
+          <DialogTitle className="flex items-center justify-between mt-1">
             <span>Choisir un template</span>
             <div className="relative">
               <Button
