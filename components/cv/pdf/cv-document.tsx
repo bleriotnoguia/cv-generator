@@ -1,20 +1,23 @@
 "use client";
 
+import React from "react";
 import { CVSection, PersonalInfo } from "@/lib/store";
 import { ModernTemplate } from "./templates/modern";
 import { ClassicTemplate } from "./templates/classic";
 import { CreativeTemplate } from "./templates/creative";
 import { ProfessionalTemplate } from "./templates/professional";
-import useStore from "@/lib/store";
 
 interface CVDocumentProps {
   personalInfo: PersonalInfo;
   sections: CVSection[];
+  selectedTemplate: string;
 }
 
-export function CVDocument({ personalInfo, sections }: CVDocumentProps) {
-  const { selectedTemplate } = useStore();
-
+export function CVDocument({
+  personalInfo,
+  sections,
+  selectedTemplate,
+}: CVDocumentProps) {
   switch (selectedTemplate) {
     case "classic":
       return (

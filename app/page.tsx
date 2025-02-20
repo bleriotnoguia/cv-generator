@@ -15,7 +15,8 @@ export default function Home() {
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
               Un outil simple et puissant pour créer des CV qui se démarquent.
-              Choisissez parmi nos modèles professionnels et personnalisez chaque détail.
+              Choisissez parmi nos modèles professionnels et personnalisez
+              chaque détail.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link href="/app">
@@ -45,7 +46,8 @@ export default function Home() {
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-muted-foreground">
                   <p className="flex-auto">
-                    Des modèles élégants et professionnels conçus pour tous les secteurs d'activité.
+                    Des modèles élégants et professionnels conçus pour tous les
+                    secteurs d&apos;activité.
                   </p>
                 </dd>
               </div>

@@ -7,14 +7,15 @@ import { Download } from "lucide-react";
 import { toast } from "sonner";
 import useStore from "@/lib/store";
 import { CVDocument } from "@/components/cv/pdf/cv-document";
-import { pdf } from "@react-pdf/renderer";
-import { useCallback } from "react";
+import { pdf, usePDF } from "@react-pdf/renderer";
+import { useCallback, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { TemplateSelector } from "@/components/cv/template-selector";
 
 export default function CVBuilder() {
-  const { personalInfo, sections } = useStore();
+  const { personalInfo, sections, selectedTemplate } = useStore();
+  const [isExporting, setIsExporting] = useState(false);
 
   // Calculer la progression du CV
   const calculateProgress = () => {
@@ -37,24 +38,24 @@ export default function CVBuilder() {
   };
 
   const handleExport = useCallback(async () => {
+    setIsExporting(true);
     try {
       const blob = await pdf(
-        <CVDocument personalInfo={personalInfo} sections={sections} />
+        <CVDocument
+          personalInfo={personalInfo}
+          sections={sections}
+          selectedTemplate={selectedTemplate}
+        />
       ).toBlob();
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${personalInfo.firstName}_${personalInfo.lastName}_CV.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      toast.success("CV exporté avec succès");
+      window.open(URL.createObjectURL(blob));
     } catch (error) {
       console.error("Erreur lors de l'export du CV:", error);
       toast.error("Une erreur est survenue lors de l'export du CV");
+      setIsExporting(false);
+    } finally {
+      setIsExporting(false);
     }
-  }, [personalInfo, sections]);
+  }, [personalInfo, sections, selectedTemplate]);
 
   const progress = calculateProgress();
 
@@ -70,9 +71,13 @@ export default function CVBuilder() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button onClick={handleExport} className="gap-2">
+            <Button
+              onClick={handleExport}
+              className="gap-2"
+              disabled={isExporting}
+            >
               <Download className="h-4 w-4" />
-              Exporter en PDF
+              {isExporting ? "Export en cours..." : "Exporter en PDF"}
             </Button>
             <TemplateSelector />
           </div>

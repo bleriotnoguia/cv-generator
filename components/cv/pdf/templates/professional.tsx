@@ -14,7 +14,7 @@ import { formatDate } from "@/lib/utils";
 
 Font.register({
   family: "Roboto",
-  src: "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.woff",
+  src: "https://cdn.jsdelivr.net/npm/roboto-font@0.1.0/fonts/Roboto/roboto-black-webfont.woff",
 });
 
 const styles = StyleSheet.create({
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   },
   sidebarSection: {
     marginBottom: 20,
+    flexDirection: "column",
   },
   sidebarTitle: {
     fontSize: 16,

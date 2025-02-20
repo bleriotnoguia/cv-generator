@@ -1,12 +1,55 @@
 "use client";
 
-import { Page, Text, View, Document, StyleSheet, Font } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Font,
+} from "@react-pdf/renderer";
 import { CVSection, PersonalInfo } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
 Font.register({
-  family: "Inter",
-  src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2",
+  family: "Poppins",
+  fonts: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-100-normal.woff",
+      fontWeight: "100",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-200-normal.woff",
+      fontWeight: "200",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-300-normal.woff",
+      fontWeight: "300",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-400-normal.woff",
+      fontWeight: "400",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-500-normal.woff",
+      fontWeight: "500",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-600-normal.woff",
+      fontWeight: "600",
+      fontStyle: "normal",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.1.1/files/poppins-latin-700-normal.woff",
+      fontWeight: "700",
+      fontStyle: "normal",
+    },
+  ],
 });
 
 const styles = StyleSheet.create({
@@ -82,7 +125,10 @@ interface ModernTemplateProps {
   sections: CVSection[];
 }
 
-export function ModernTemplate({ personalInfo, sections }: ModernTemplateProps) {
+export function ModernTemplate({
+  personalInfo,
+  sections,
+}: ModernTemplateProps) {
   const sortedSections = [...sections].sort((a, b) => a.order - b.order);
 
   return (
@@ -113,17 +159,25 @@ export function ModernTemplate({ personalInfo, sections }: ModernTemplateProps) 
           <View key={section.id} style={styles.section}>
             {section.type === "experience" && (
               <>
-                <Text style={styles.sectionTitle}>Expérience professionnelle</Text>
+                <Text style={styles.sectionTitle}>
+                  Expérience professionnelle
+                </Text>
                 <View style={styles.section}>
-                  <Text style={styles.itemTitle}>{section.content.position}</Text>
-                  <Text style={styles.itemSubtitle}>{section.content.company}</Text>
+                  <Text style={styles.itemTitle}>
+                    {section.content.position}
+                  </Text>
+                  <Text style={styles.itemSubtitle}>
+                    {section.content.company}
+                  </Text>
                   <Text style={styles.dates}>
                     {formatDate(section.content.startDate)} -{" "}
                     {section.content.endDate
                       ? formatDate(section.content.endDate)
                       : "Présent"}
                   </Text>
-                  <Text style={styles.description}>{section.content.description}</Text>
+                  <Text style={styles.description}>
+                    {section.content.description}
+                  </Text>
                 </View>
               </>
             )}
@@ -133,7 +187,9 @@ export function ModernTemplate({ personalInfo, sections }: ModernTemplateProps) 
                 <Text style={styles.sectionTitle}>Formation</Text>
                 <View style={styles.section}>
                   <Text style={styles.itemTitle}>{section.content.degree}</Text>
-                  <Text style={styles.itemSubtitle}>{section.content.school}</Text>
+                  <Text style={styles.itemSubtitle}>
+                    {section.content.school}
+                  </Text>
                   <Text style={styles.dates}>
                     {formatDate(section.content.startDate)} -{" "}
                     {section.content.endDate
@@ -153,14 +209,18 @@ export function ModernTemplate({ personalInfo, sections }: ModernTemplateProps) 
               section.content.categories?.length > 0 && (
                 <>
                   <Text style={styles.sectionTitle}>Compétences</Text>
-                  {section.content.categories.map((category: any, index: number) => (
-                    <View key={index} style={styles.skillCategory}>
-                      <Text style={styles.skillCategoryName}>{category.name}</Text>
-                      <Text style={styles.skillList}>
-                        {category.skills.join(" • ")}
-                      </Text>
-                    </View>
-                  ))}
+                  {section.content.categories.map(
+                    (category: any, index: number) => (
+                      <View key={index} style={styles.skillCategory}>
+                        <Text style={styles.skillCategoryName}>
+                          {category.name}
+                        </Text>
+                        <Text style={styles.skillList}>
+                          {category.skills.join(" • ")}
+                        </Text>
+                      </View>
+                    )
+                  )}
                 </>
               )}
           </View>

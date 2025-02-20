@@ -1,12 +1,19 @@
 "use client";
 
-import { Page, Text, View, Document, StyleSheet, Font } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Font,
+} from "@react-pdf/renderer";
 import { CVSection, PersonalInfo } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
 Font.register({
   family: "Roboto",
-  src: "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.woff",
+  src: "https://cdn.jsdelivr.net/npm/roboto-font@0.1.0/fonts/Roboto/roboto-black-webfont.woff",
 });
 
 const styles = StyleSheet.create({
@@ -92,7 +99,10 @@ interface CreativeTemplateProps {
   sections: CVSection[];
 }
 
-export function CreativeTemplate({ personalInfo, sections }: CreativeTemplateProps) {
+export function CreativeTemplate({
+  personalInfo,
+  sections,
+}: CreativeTemplateProps) {
   const sortedSections = [...sections].sort((a, b) => a.order - b.order);
 
   return (
@@ -121,10 +131,16 @@ export function CreativeTemplate({ personalInfo, sections }: CreativeTemplatePro
             <View key={section.id} style={styles.section}>
               {section.type === "experience" && (
                 <>
-                  <Text style={styles.sectionTitle}>Expérience professionnelle</Text>
+                  <Text style={styles.sectionTitle}>
+                    Expérience professionnelle
+                  </Text>
                   <View style={styles.section}>
-                    <Text style={styles.itemTitle}>{section.content.position}</Text>
-                    <Text style={styles.itemSubtitle}>{section.content.company}</Text>
+                    <Text style={styles.itemTitle}>
+                      {section.content.position}
+                    </Text>
+                    <Text style={styles.itemSubtitle}>
+                      {section.content.company}
+                    </Text>
                     <Text style={styles.dates}>
                       {formatDate(section.content.startDate)} -{" "}
                       {section.content.endDate
@@ -142,8 +158,12 @@ export function CreativeTemplate({ personalInfo, sections }: CreativeTemplatePro
                 <>
                   <Text style={styles.sectionTitle}>Formation</Text>
                   <View style={styles.section}>
-                    <Text style={styles.itemTitle}>{section.content.degree}</Text>
-                    <Text style={styles.itemSubtitle}>{section.content.school}</Text>
+                    <Text style={styles.itemTitle}>
+                      {section.content.degree}
+                    </Text>
+                    <Text style={styles.itemSubtitle}>
+                      {section.content.school}
+                    </Text>
                     <Text style={styles.dates}>
                       {formatDate(section.content.startDate)} -{" "}
                       {section.content.endDate
@@ -163,14 +183,18 @@ export function CreativeTemplate({ personalInfo, sections }: CreativeTemplatePro
                 section.content.categories?.length > 0 && (
                   <>
                     <Text style={styles.sectionTitle}>Compétences</Text>
-                    {section.content.categories.map((category: any, index: number) => (
-                      <View key={index} style={styles.skillCategory}>
-                        <Text style={styles.skillCategoryName}>{category.name}</Text>
-                        <Text style={styles.skillList}>
-                          {category.skills.join(" • ")}
-                        </Text>
-                      </View>
-                    ))}
+                    {section.content.categories.map(
+                      (category: any, index: number) => (
+                        <View key={index} style={styles.skillCategory}>
+                          <Text style={styles.skillCategoryName}>
+                            {category.name}
+                          </Text>
+                          <Text style={styles.skillList}>
+                            {category.skills.join(" • ")}
+                          </Text>
+                        </View>
+                      )
+                    )}
                   </>
                 )}
             </View>

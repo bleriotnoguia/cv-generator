@@ -11,7 +11,7 @@ const Footer = () => {
       <p className=" italic">
         Par{" "}
         <Link
-          href="https://belriotnoguia.com"
+          href="https://bleriotnoguia.com"
           className="underline"
           target="_blank"
         >
