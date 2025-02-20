@@ -3,7 +3,7 @@
 import { CVSection } from "@/lib/store";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { Button } from "@/components/ui/button";
-import { GripVertical, Plus } from "lucide-react";
+import { GripVertical, Plus, Trash2 } from "lucide-react";
 import useStore from "@/lib/store";
 import { ExperienceForm } from "./sections/experience-form";
 import { EducationForm } from "./sections/education-form";
@@ -18,7 +18,7 @@ const SECTION_TYPES = [
 ] as const;
 
 export function SectionList() {
-  const { sections, addSection, reorderSections } = useStore();
+  const { sections, addSection, reorderSections, removeSection } = useStore();
   const [isExpanded, setIsExpanded] = useState<string | null>(null);
 
   const handleDragEnd = (result: any) => {
@@ -65,48 +65,81 @@ export function SectionList() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="cv-sections">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
-              {sections.map((section, index) => (
-                <Draggable key={section.id} draggableId={section.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className={cn(
-                        "rounded-lg border bg-card",
-                        snapshot.isDragging && "shadow-lg"
-                      )}
-                    >
-                      <div className="flex items-center gap-2 p-4">
-                        <div
-                          {...provided.dragHandleProps}
-                          className="cursor-grab rounded p-1 hover:bg-accent active:cursor-grabbing"
-                        >
-                          <GripVertical className="h-5 w-5 text-muted-foreground" />
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="space-y-4"
+            >
+              {sections
+                .sort((a, b) => a.order - b.order)
+                .map((section, index) => (
+                  <Draggable
+                    key={section.id}
+                    draggableId={section.id}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        className={cn(
+                          "rounded-lg border bg-card",
+                          snapshot.isDragging && "shadow-lg"
+                        )}
+                      >
+                        <div className="flex items-center justify-between p-4">
+                          <div className="flex items-center gap-4">
+                            <div
+                              {...provided.dragHandleProps}
+                              className="cursor-grab rounded p-1 hover:bg-accent active:cursor-grabbing"
+                            >
+                              <GripVertical className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                            <div
+                              className="flex-1 cursor-pointer"
+                              onClick={() =>
+                                setIsExpanded(
+                                  isExpanded === section.id ? null : section.id
+                                )
+                              }
+                            >
+                              <h3 className="text-lg font-semibold">
+                                {
+                                  SECTION_TYPES.find(
+                                    (t) => t.type === section.type
+                                  )?.label
+                                }
+                              </h3>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeSection(section.id);
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
-                        <div
-                          className="flex-1 cursor-pointer"
-                          onClick={() => setIsExpanded(isExpanded === section.id ? null : section.id)}
-                        >
-                          <h3 className="text-lg font-semibold">
-                            {SECTION_TYPES.find((t) => t.type === section.type)?.label}
-                          </h3>
-                        </div>
+                        {isExpanded === section.id && (
+                          <div className="border-t p-4">
+                            {renderSectionForm(section)}
+                          </div>
+                        )}
                       </div>
-                      {isExpanded === section.id && (
-                        <div className="border-t p-4">
-                          {renderSectionForm(section)}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
               {sections.length === 0 && (
                 <div className="rounded-lg border-2 border-dashed p-8 text-center">
                   <p className="text-muted-foreground">
-                    Aucune section ajoutée. Utilisez les boutons ci-dessous pour ajouter des sections à votre CV.
+                    Aucune section ajoutée. Utilisez les boutons ci-dessous pour
+                    ajouter des sections à votre CV.
                   </p>
                 </div>
               )}
