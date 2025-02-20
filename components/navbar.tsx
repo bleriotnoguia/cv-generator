@@ -11,18 +11,20 @@ export function Navbar() {
 
   return (
     <header className="border-b">
-      <div className="px-8 flex h-16 items-center justify-between mx-auto">
-        <Link href="/" className="font-bold text-2xl uppercase">
+      <div className="max-w-full px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between mx-auto">
+        <Link href="/" className="font-bold text-xl sm:text-2xl uppercase">
           CV Generator
         </Link>
         <nav>
           {!isAppPage ? (
             <Link href="/app">
-              <Button>Créer mon CV</Button>
+              <Button className="text-sm sm:text-base">Créer mon CV</Button>
             </Link>
           ) : (
             <Link href="/">
-              <Button variant="ghost">Retour à l'accueil</Button>
+              <Button variant="ghost" className="text-sm sm:text-base">
+                Retour à l&apos;accueil
+              </Button>
             </Link>
           )}
         </nav>

@@ -62,15 +62,15 @@ export default function CVBuilder() {
   return (
     <div className="container py-6">
       <div className="mb-6 space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-2">
           <div>
-            <h1 className="text-3xl font-bold">Créer votre CV</h1>
-            <p className="mt-1 text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold">Créer votre CV</h1>
+            <p className="mt-1 text-sm sm:text-base text-muted-foreground">
               Remplissez les informations ci-dessous pour créer votre CV
               professionnel
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full sm:w-auto flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <Button
               onClick={handleExport}
               className="gap-2"
