@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +19,14 @@ import { toast } from "sonner";
 import { X } from "lucide-react";
 
 const skillsSchema = z.object({
-  categories: z.array(
-    z.object({
-      name: z.string().min(1, "Le nom de la catégorie est requis"),
-      skills: z.array(z.string().min(1, "La compétence est requise")),
-    })
-  ).default([]),
+  categories: z
+    .array(
+      z.object({
+        name: z.string().min(1, "Le nom de la catégorie est requis"),
+        skills: z.array(z.string().min(1, "La compétence est requise")),
+      })
+    )
+    .default([]),
 });
 
 type SkillsFormProps = {
@@ -41,7 +43,12 @@ export function SkillsForm({ section }: SkillsFormProps) {
     },
   });
 
-  const { fields: categories, append: appendCategory, remove: removeCategory } = form.useFieldArray({
+  const {
+    fields: categories,
+    append: appendCategory,
+    remove: removeCategory,
+  } = useFieldArray({
+    control: form.control,
     name: "categories",
   });
 
@@ -63,7 +70,10 @@ export function SkillsForm({ section }: SkillsFormProps) {
                   <FormItem className="flex-1">
                     <FormLabel>Catégorie</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ex: Langages de programmation" {...field} />
+                      <Input
+                        placeholder="Ex: Langages de programmation"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -82,48 +92,63 @@ export function SkillsForm({ section }: SkillsFormProps) {
 
             {form.getFieldState(`categories.${categoryIndex}.skills`).error && (
               <p className="text-sm text-destructive">
-                {form.getFieldState(`categories.${categoryIndex}.skills`).error?.message}
+                {
+                  form.getFieldState(`categories.${categoryIndex}.skills`).error
+                    ?.message
+                }
               </p>
             )}
 
             <div className="flex flex-wrap gap-2">
-              {form.getValues(`categories.${categoryIndex}.skills`)?.map((_, skillIndex) => (
-                <FormField
-                  key={skillIndex}
-                  control={form.control}
-                  name={`categories.${categoryIndex}.skills.${skillIndex}`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex items-center gap-2">
-                          <Input placeholder="Ex: JavaScript" {...field} className="w-32" />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => {
-                              const skills = form.getValues(`categories.${categoryIndex}.skills`);
-                              form.setValue(
-                                `categories.${categoryIndex}.skills`,
-                                skills.filter((_, i) => i !== skillIndex)
-                              );
-                            }}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              ))}
+              {form
+                .getValues(`categories.${categoryIndex}.skills`)
+                ?.map((_, skillIndex) => (
+                  <FormField
+                    key={skillIndex}
+                    control={form.control}
+                    name={`categories.${categoryIndex}.skills.${skillIndex}`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="flex items-center gap-2">
+                            <Input
+                              placeholder="Ex: JavaScript"
+                              {...field}
+                              className="w-32"
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => {
+                                const skills = form.getValues(
+                                  `categories.${categoryIndex}.skills`
+                                );
+                                form.setValue(
+                                  `categories.${categoryIndex}.skills`,
+                                  skills.filter((_, i) => i !== skillIndex)
+                                );
+                              }}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                ))}
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  const skills = form.getValues(`categories.${categoryIndex}.skills`) || [];
-                  form.setValue(`categories.${categoryIndex}.skills`, [...skills, ""]);
+                  const skills =
+                    form.getValues(`categories.${categoryIndex}.skills`) || [];
+                  form.setValue(`categories.${categoryIndex}.skills`, [
+                    ...skills,
+                    "",
+                  ]);
                 }}
               >
                 Ajouter une compétence
