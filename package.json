@@ -76,6 +76,7 @@
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.8",
+    "encoding": "^0.1.13",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11"
   }
