@@ -87,9 +87,12 @@ export function EducationForm({ section }: EducationFormProps) {
             name="field"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Domaine d'études</FormLabel>
+                <FormLabel>Domaine d&apos;études</FormLabel>
                 <FormControl>
-                  <Input placeholder="Informatique, Commerce, etc." {...field} />
+                  <Input
+                    placeholder="Informatique, Commerce, etc."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
