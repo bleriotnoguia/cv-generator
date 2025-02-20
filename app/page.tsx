@@ -116,9 +116,21 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t">
         <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-          <div className="mt-8 md:order-1 md:mt-0">
-            <p className="text-center text-sm leading-5 text-muted-foreground">
-              &copy; 2024 CV Builder. Tous droits réservés.
+          <div className="mt-8 md:order-1 md:mt-0 flex flex-row justify-center items-center text-sm text-muted-foreground">
+            <p>
+              &copy; {new Date().getFullYear()} CV Generator. Tous droits
+              réservés.
+            </p>{" "}
+            <span className="mx-2 0">|</span>
+            <p className=" italic">
+              Par{" "}
+              <Link
+                href="https://bleriotnoguia.com"
+                className="underline"
+                target="_blank"
+              >
+                Blériot Noguia
+              </Link>
             </p>
           </div>
         </div>
