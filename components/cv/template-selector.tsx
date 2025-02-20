@@ -17,19 +17,29 @@ const TEMPLATES = [
     id: "modern",
     name: "Modern",
     description: "Un design épuré et professionnel",
-    preview: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=400",
+    preview:
+      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=400",
   },
   {
     id: "classic",
     name: "Classic",
     description: "Un style traditionnel et élégant",
-    preview: "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+    preview:
+      "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
   },
   {
     id: "creative",
     name: "Creative",
     description: "Un design moderne et créatif",
-    preview: "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+    preview:
+      "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
+  },
+  {
+    id: "professional",
+    name: "Professional",
+    description: "Un design professionnel avec barre latérale",
+    preview:
+      "https://images.unsplash.com/photo-1626197031507-c17099753214?q=80&w=400",
   },
 ];
 
@@ -53,7 +63,9 @@ export function TemplateSelector() {
             <div
               key={template.id}
               className={`group relative cursor-pointer overflow-hidden rounded-lg border-2 transition-all hover:border-primary ${
-                selectedTemplate === template.id ? "border-primary" : "border-muted"
+                selectedTemplate === template.id
+                  ? "border-primary"
+                  : "border-muted"
               }`}
               onClick={() => setTemplate(template.id)}
             >
@@ -67,7 +79,9 @@ export function TemplateSelector() {
               <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
                 <div className="text-white">
                   <h3 className="font-semibold">{template.name}</h3>
-                  <p className="text-sm text-white/80">{template.description}</p>
+                  <p className="text-sm text-white/80">
+                    {template.description}
+                  </p>
                 </div>
               </div>
               {selectedTemplate === template.id && (

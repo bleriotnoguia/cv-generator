@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useStore from "@/lib/store";
 import { toast } from "sonner";
+import { ImageIcon } from "lucide-react";
 
 const personalInfoSchema = z.object({
   firstName: z.string().min(1, "Le prénom est requis"),
@@ -28,7 +29,7 @@ const personalInfoSchema = z.object({
 });
 
 export function PersonalInfoForm() {
-  const { personalInfo, updatePersonalInfo } = useStore();
+  const { personalInfo, updatePersonalInfo, selectedTemplate } = useStore();
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
@@ -40,9 +41,46 @@ export function PersonalInfoForm() {
     toast.success("Informations personnelles mises à jour");
   }
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        updatePersonalInfo({ profileImage: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {selectedTemplate === "professional" && (
+          <div className="flex justify-center">
+            <div className="relative">
+              <div className="h-32 w-32 overflow-hidden rounded-full border-2 border-muted">
+                {personalInfo.profileImage ? (
+                  <img
+                    src={personalInfo.profileImage}
+                    alt="Profile"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center bg-muted">
+                    <ImageIcon className="h-12 w-12 text-muted-foreground" />
+                  </div>
+                )}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="absolute inset-0 cursor-pointer opacity-0"
+              />
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-6 md:grid-cols-2">
           <FormField
             control={form.control}

@@ -16,6 +16,7 @@ export interface PersonalInfo {
   location: string;
   title: string;
   summary: string;
+  profileImage?: string;
 }
 
 interface CVStore {
